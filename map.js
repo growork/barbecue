@@ -1,32 +1,17 @@
 ymaps.ready(init);
-var myMap;
+var myMap, 
+    myPlacemark;
 
-function init(){
-	address = document.getElemntById('map').getAttribute('data-address');
-
-	myMap = new ymaps.Map("map", {
-		center: [55.76, 37.64],
-		zoom: 10
-	});
-
-	myGeocoder = ymaps.geocode(address);
-
-	myGeocoder.then(
-		function (res) {
-			coordinates = res.geoObjects.get(0).geometry.getCoordinates();
-
-			myMap.geoObjects.add(
-				new ymaps.Placemark(
-					coordinates,
-					{iconContent: address},
-					{preset: 'islands#blueStretchyIcon'}
-					)
-				);
-
-			myMap.setCenter(coordinates);
-			myMap.setZoom(15);
-		}, function (err) {
-			alert('Ошибка при определении местоположения');
-		}
-	);
+function init(){ 
+    myMap = new ymaps.Map("map", {
+        center: [59.858265, 30.149173],
+        zoom: 13
+    }); 
+    
+    myPlacemark = new ymaps.Placemark([59.858265, 30.149173], {
+        hintContent: 'Финский залив!',
+        balloonContent: 'Хорошее место для отдыха'
+    });
+    
+    myMap.geoObjects.add(myPlacemark);
 }
